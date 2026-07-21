@@ -16,13 +16,12 @@ h1 { color: #0B2027; margin-bottom: 10px; font-size: 24px; }
 .warehouse { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 40px; }
 .side { border: 2px solid #0B2027; border-radius: 6px; padding: 15px; background: #f9f9f9; }
 .side-title { font-weight: bold; color: #0B2027; font-size: 14px; margin-bottom: 15px; text-align: center; }
-.corredor-solo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; transition: all 0.2s; margin-bottom: 25px; width: 48%; }
+.corredor-solo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; transition: all 0.2s; margin-bottom: 25px; width: 100%; }
 .corredor-solo:hover { background: #d0f0f5; box-shadow: 0 2px 4px rgba(79, 184, 192, 0.3); }
-.corredor-duplo { background: transparent; display: flex; flex-direction: column; gap: 0px; margin-bottom: 25px; width: 100%; }
-.corredor-duplo:hover { background: #d0f0f5; box-shadow: 0 2px 4px rgba(79, 184, 192, 0.3); }
-.corredor-item { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; margin-bottom: 8px; }
-.corredor-item:first-child { border-right: none; }
-.corredor-item:last-child { margin-bottom: 0; }
+.corredor-duplo { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; width: 100%; }
+.corredor-item { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; transition: all 0.2s; }
+.corredor-item:hover { background: #d0f0f5; box-shadow: 0 2px 4px rgba(79, 184, 192, 0.3); }
+.corredor-610 { width: 81.33%; margin-left: 18.67%; }
 .corredor-nome { font-weight: bold; font-size: 12px; }
 .corredor-tamanho { font-size: 9px; color: #999; margin-top: 2px; }
 .center-info { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
@@ -45,37 +44,15 @@ h1 { color: #0B2027; margin-bottom: 10px; font-size: 24px; }
   </div>
 
   <div class="warehouse">
-    <!-- ESQUERDA -->
     <div class="side">
       <div class="side-title">ESQUERDA (10 CORREDORES)</div>
-      
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">E1</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">E2</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">E3</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">E4</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">E5</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">E6</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">E7</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">E8</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">E9</div><div class="corredor-tamanho">6,10m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">E10</div><div class="corredor-tamanho">6,10m</div></div>
-      </div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">E1</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">E2</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">E3</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">E4</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">E5</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">E6</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">E7</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">E8</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item corredor-610"><div class="corredor-nome">E9</div><div class="corredor-tamanho">6,10m</div></div><div class="corredor-item corredor-610"><div class="corredor-nome">E10</div><div class="corredor-tamanho">6,10m</div></div></div>
     </div>
 
-    <!-- CENTRO -->
     <div class="center-info">
       <strong>VP FILMES</strong>
       <p>Galp 09</p>
@@ -89,51 +66,17 @@ h1 { color: #0B2027; margin-bottom: 10px; font-size: 24px; }
       </div>
     </div>
 
-    <!-- DIREITA -->
     <div class="side">
       <div class="side-title">DIREITA (17 CORREDORES)</div>
-      
       <div class="corredor-solo"><div class="corredor-nome">D1</div><div class="corredor-tamanho">7,50m</div></div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D2</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D3</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D4</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D5</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D6</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D7</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D8</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D9</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D10</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D11</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D12</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D13</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D14</div><div class="corredor-tamanho">7,50m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D15</div><div class="corredor-tamanho">7,50m</div></div>
-      </div>
-
-      <div class="corredor-duplo">
-        <div class="corredor-item"><div class="corredor-nome">D16</div><div class="corredor-tamanho">6,10m</div></div>
-        <div class="corredor-item"><div class="corredor-nome">D17</div><div class="corredor-tamanho">6,10m</div></div>
-      </div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D2</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D3</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D4</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D5</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D6</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D7</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D8</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D9</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D10</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D11</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D12</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D13</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item"><div class="corredor-nome">D14</div><div class="corredor-tamanho">7,50m</div></div><div class="corredor-item"><div class="corredor-nome">D15</div><div class="corredor-tamanho">7,50m</div></div></div>
+      <div class="corredor-duplo"><div class="corredor-item corredor-610"><div class="corredor-nome">D16</div><div class="corredor-tamanho">6,10m</div></div><div class="corredor-item corredor-610"><div class="corredor-nome">D17</div><div class="corredor-tamanho">6,10m</div></div></div>
     </div>
   </div>
 </div>
