@@ -18,10 +18,11 @@ h1 { color: #0B2027; margin-bottom: 10px; font-size: 24px; }
 .side-title { font-weight: bold; color: #0B2027; font-size: 14px; margin-bottom: 15px; text-align: center; }
 .corredor-solo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; transition: all 0.2s; margin-bottom: 25px; width: 48%; }
 .corredor-solo:hover { background: #d0f0f5; box-shadow: 0 2px 4px rgba(79, 184, 192, 0.3); }
-.corredor-duplo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; margin-bottom: 25px; width: 100%; cursor: pointer; transition: all 0.2s; }
+.corredor-duplo { background: transparent; display: flex; flex-direction: column; gap: 0px; margin-bottom: 25px; width: 100%; }
 .corredor-duplo:hover { background: #d0f0f5; box-shadow: 0 2px 4px rgba(79, 184, 192, 0.3); }
-.corredor-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; }
-.corredor-item:first-child { border-right: 1px solid #9DD4DB; }
+.corredor-item { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; margin-bottom: 8px; }
+.corredor-item:first-child { border-right: none; }
+.corredor-item:last-child { margin-bottom: 0; }
 .corredor-nome { font-weight: bold; font-size: 12px; }
 .corredor-tamanho { font-size: 9px; color: #999; margin-top: 2px; }
 .center-info { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
