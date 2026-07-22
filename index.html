@@ -6,149 +6,69 @@
 <title>Sistema de Paletes - VP Filmes</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
-.container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-h1 { color: #0B2027; margin-bottom: 10px; font-size: 24px; }
-.subtitle { color: #666; font-size: 12px; margin-bottom: 25px; }
-.controls { display: flex; gap: 10px; margin-bottom: 20px; }
-button { padding: 8px 16px; background: #0B2027; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; }
-button:hover { background: #0a1820; }
-.warehouse { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 40px; margin-top: 25px; }
-.side { border: 2px solid #0B2027; border-radius: 6px; padding: 15px; background: #f9f9f9; }
-.side-title { font-weight: bold; color: #0B2027; font-size: 14px; margin-bottom: 15px; text-align: center; }
-.corredor { background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; transition: all 0.2s; position: relative; min-height: 80px; padding: 10px; margin-bottom: 25px; }
+body { font-family: system-ui; background: #f5f5f5; padding: 20px; }
+.container { max-width: 1400px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; }
+h1 { color: #0B2027; margin-bottom: 5px; }
+.subtitle { color: #999; font-size: 12px; margin-bottom: 20px; }
+button { padding: 10px 15px; background: #0B2027; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; margin-bottom: 15px; }
+button:hover { background: #000; }
+.warehouse { display: grid; grid-template-columns: 1fr 100px 1fr; gap: 30px; }
+.lado { border: 2px solid #0B2027; padding: 15px; border-radius: 6px; }
+.lado-title { font-weight: bold; margin-bottom: 15px; text-align: center; }
+.corredor { background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; padding: 12px; margin-bottom: 25px; border-radius: 4px; cursor: pointer; position: relative; min-height: 70px; }
 .corredor:hover { background: #d0f0f5; }
-.corredor-nome { font-weight: bold; font-size: 12px; }
-.corredor-tamanho { font-size: 9px; color: #999; margin-top: 2px; }
-.paletes-container { position: absolute; top: 5px; left: 5px; right: 5px; bottom: 30px; display: flex; align-items: flex-end; gap: 2px; overflow-x: auto; background: rgba(255,255,255,0.5); border-radius: 2px; padding: 2px; }
-.palete { background: #FF6B35; border: 1px solid #D94A1F; border-radius: 2px; color: white; font-size: 8px; padding: 4px 2px; text-align: center; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.corredor-head { font-weight: bold; margin-bottom: 5px; }
+.corredor-size { font-size: 10px; color: #999; }
+.corredor-info { font-size: 9px; margin-top: 5px; }
+.paletes { display: flex; gap: 2px; margin-top: 8px; flex-wrap: wrap; }
+.palete { background: #FF6B35; color: white; padding: 4px 6px; border-radius: 2px; font-size: 9px; cursor: pointer; }
 .palete:hover { background: #E55A25; }
-.corredor-info { position: absolute; bottom: 2px; left: 5px; right: 5px; font-size: 8px; color: #666; }
-.center-info { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-.center-info p { color: #666; font-size: 12px; margin-bottom: 8px; }
-.center-info strong { color: #0B2027; font-size: 14px; }
-.specs { background: #f0f8fb; padding: 10px; border-radius: 4px; border-left: 3px solid #4FB8C0; margin-top: 10px; font-size: 11px; color: #666; line-height: 1.6; }
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-.modal.active { display: flex; }
-.modal-content { background: white; padding: 25px; border-radius: 8px; max-width: 500px; width: 90%; }
-.modal-content h2 { color: #0B2027; margin-bottom: 15px; }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; font-weight: 500; color: #0B2027; margin-bottom: 6px; font-size: 13px; }
-.form-group input, .form-group select { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; }
-.modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
-.modal-buttons button { flex: 1; }
-.btn-danger { background: #D94A1F !important; }
+.centro { text-align: center; }
+.centro strong { font-size: 16px; color: #0B2027; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 999; }
+.modal.show { display: flex; }
+.modal-box { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 450px; }
+.modal-box h2 { margin-bottom: 15px; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-weight: 500; margin-bottom: 4px; font-size: 13px; }
+.form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; }
+.modal-btns { display: flex; gap: 10px; margin-top: 15px; }
+.modal-btns button { flex: 1; }
 </style>
 </head>
 <body>
 <div class="container">
   <h1>Sistema de Paletes - VP Filmes Galpão 09</h1>
   <div class="subtitle">BOPP - Gerenciamento de Paletes nos Corredores</div>
-  <div class="controls">
-    <button onclick="limparTudo()">Limpar Tudo</button>
-    <button onclick="exportarDados()">Exportar</button>
-    <button onclick="importarDados()">Importar</button>
+  <div>
+    <button onclick="limpar()">Limpar Tudo</button>
+    <button onclick="exportar()">Exportar</button>
+    <button onclick="importar()">Importar</button>
   </div>
   <div class="warehouse">
-    <div class="side">
-      <div class="side-title">ESQUERDA (10 CORREDORES)</div>
-      <div id="esquerda"></div>
-    </div>
-    <div class="center-info">
+    <div class="lado" id="esq"></div>
+    <div class="centro">
       <strong>VP FILMES</strong>
       <p>Galp 09</p>
-      <p>Blumenau, SC</p>
-      <div class="specs">
-        <strong>BOPP - Paletes</strong><br>
-        Bobinas deitadas<br>
-        Alt: 0,80m<br><br>
-        <strong>Profundidade:</strong><br>
-        0,80m (default)
+      <p style="font-size:12px; color:#999;">Blumenau, SC</p>
+      <div style="background:#f0f8fb; padding:10px; margin-top:15px; border-radius:4px; border-left:3px solid #4FB8C0; font-size:11px;">
+        <strong>BOPP</strong><br>Bobinas deitadas<br>Alt: 0,80m
       </div>
     </div>
-    <div class="side">
-      <div class="side-title">DIREITA (17 CORREDORES)</div>
-      <div id="direita"></div>
-    </div>
+    <div class="lado" id="dir"></div>
   </div>
 </div>
 
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <h2 id="modal-title">Adicionar Palete</h2>
+  <div class="modal-box">
+    <h2 id="mod-title">Adicionar</h2>
     <div class="form-group">
       <label>Fornecedor</label>
-      <input type="text" id="fornecedor">
+      <input type="text" id="forn">
     </div>
     <div class="form-group">
       <label>Largura (mm)</label>
-      <select id="largura">
-        <option value="">Selecione</option>
-        <option value="680">680mm</option>
-        <option value="912">912mm</option>
-        <option value="942">942mm</option>
-        <option value="972">972mm</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Qty Bobinas</label>
-      <select id="qty">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Peso Total (kg)</label>
-      <input type="number" id="peso">
-    </div>
-    <div class="modal-buttons">
-      <button onclick="salvarPalete()">Salvar</button>
-      <button onclick="fecharModal()" style="background: #999;">Cancelar</button>
-      <button class="btn-danger" id="btn-del" onclick="deletarPalete()" style="display:none;">Deletar</button>
-    </div>
-  </div>
-</div>
-
-<script>
-const esquerda_list = ['E1','E2','E3','E4','E5','E6','E7','E8','E9','E10'];
-const direita_list = ['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10','D11','D12','D13','D14','D15','D16','D17'];
-const tamanhos = {'E9':6.1, 'E10':6.1, 'D16':6.1, 'D17':6.1};
-
-let paletes = {};
-let corredor_atual = null;
-let idx_atual = null;
-
-function init() {
-  [...esquerda_list, ...direita_list].forEach(c => {
-    if (!paletes[c]) paletes[c] = [];
-  });
-  const saved = localStorage.getItem('paletes');
-  if (saved) paletes = JSON.parse(saved);
-  render();
-}
-
-function render() {
-  document.getElementById('esquerda').innerHTML = renderLado(esquerda_list);
-  document.getElementById('direita').innerHTML = renderLado(direita_list);
-}
-
-function renderLado(lista) {
-  return lista.map(c => {
-    const tam = tamanhos[c] || 7.5;
-    const pals = paletes[c] || [];
-    const peso = pals.reduce((s, p) => s + parseInt(p.peso || 0), 0);
-    const comp_usado = pals.reduce((s, p) => s + parseInt(p.largura || 0)/1000, 0);
-    const comp_livre = (tam - comp_usado).toFixed(2);
-    
-    const pals_html = pals.map((p, i) => {
-      const w = (parseInt(p.largura||680)/1000/tam)*100;
-      const h = 0.8 * parseInt(p.qty) * 30;
-      return `<div class="palete" style="width:${w}%;height:${h}px" onclick="editar('${c}',${i})"><div>${p.fornecedor.substring(0,3)}</div><div style="font-size:7px">${p.largura}mm</div></div>`;
-    }).join('');
-    
-    return `<div class="corredor" onclick="abrir('${c}')"><div class="corredor-nome">${c}</div><div class="corredor-tamanho">${tam.toFixed(2)}m</div><div class="paletes-container">${pals_html}</div><div class="corredor-info">${peso}kg | ${comp_livre}m livre</div></div>`;
-  }).join('');
-}
-
-f
+      <select id="larg">
+        <option>Selecione</option>
+        <option value="680">680</option>
+        <option value="912">912</option>
