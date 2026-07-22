@@ -16,7 +16,6 @@ button:hover { background: #0a1820; }
 .warehouse { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 40px; margin-top: 25px; }
 .side { border: 2px solid #0B2027; border-radius: 6px; padding: 15px; background: #f9f9f9; }
 .side-title { font-weight: bold; color: #0B2027; font-size: 14px; margin-bottom: 15px; text-align: center; }
-.corredor-group { margin-bottom: 25px; }
 .corredor-solo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #0B2027; cursor: pointer; transition: all 0.2s; margin-bottom: 25px; width: 100%; position: relative; min-height: 80px; padding: 10px; }
 .corredor-solo:hover { background: #d0f0f5; }
 .corredor-duplo { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; width: 100%; }
@@ -54,13 +53,11 @@ button:hover { background: #0a1820; }
 <div class="container">
   <h1>Sistema de Paletes - VP Filmes Galpão 09</h1>
   <div class="subtitle">BOPP - Gerenciamento de Paletes nos Corredores</div>
-
   <div class="controls">
     <button onclick="limparTudo()">Limpar Tudo</button>
     <button onclick="exportarDados()">Exportar</button>
     <button onclick="importarDados()">Importar</button>
   </div>
-
   <div class="warehouse">
     <div class="side">
       <div class="side-title">ESQUERDA (10 CORREDORES)</div>
@@ -70,13 +67,7 @@ button:hover { background: #0a1820; }
       <strong>VP FILMES</strong>
       <p>Galp 09</p>
       <p>Blumenau, SC</p>
-      <div class="specs">
-        <strong>BOPP - Paletes</strong><br>
-        Bobinas deitadas<br>
-        Alt: 0,80m<br><br>
-        <strong>Profundidade:</strong><br>
-        0,80m (default)
-      </div>
+      <div class="specs"><strong>BOPP - Paletes</strong><br>Bobinas deitadas<br>Alt: 0,80m<br><br><strong>Profundidade:</strong><br>0,80m (default)</div>
     </div>
     <div class="side">
       <div class="side-title">DIREITA (17 CORREDORES)</div>
@@ -84,73 +75,35 @@ button:hover { background: #0a1820; }
     </div>
   </div>
 </div>
-
 <div class="modal" id="modal">
   <div class="modal-content">
     <h2 id="modal-title">Adicionar Palete</h2>
-    <div class="form-group">
-      <label>Fornecedor</label>
-      <input type="text" id="fornecedor" placeholder="Ex: Label Packing">
-    </div>
-    <div class="form-group">
-      <label>Largura Bobina (mm)</label>
-      <select id="largura">
-        <option value="">Selecione...</option>
-        <option value="680">680mm</option>
-        <option value="912">912mm</option>
-        <option value="942">942mm</option>
-        <option value="972">972mm</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Quantidade Bobinas (1-3)</label>
-      <select id="qty">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Peso Total (kg)</label>
-      <input type="number" id="peso" placeholder="Ex: 500">
-    </div>
-    <div class="form-group">
-      <label>Profundidade Palete (m)</label>
-      <input type="number" id="profundidade" value="0.80" step="0.05" min="0.75" max="0.80">
-    </div>
-    <div class="modal-buttons">
-      <button onclick="salvarPalete()">Salvar</button>
-      <button onclick="fecharModal()" style="background: #999;">Cancelar</button>
-      <button class="btn-danger" id="btn-deletar" onclick="deletarPalete()" style="display:none;">Deletar</button>
-    </div>
+    <div class="form-group"><label>Fornecedor</label><input type="text" id="fornecedor" placeholder="Ex: Label Packing"></div>
+    <div class="form-group"><label>Largura Bobina (mm)</label><select id="largura"><option value="">Selecione...</option><option value="680">680mm</option><option value="912">912mm</option><option value="942">942mm</option><option value="972">972mm</option></select></div>
+    <div class="form-group"><label>Quantidade Bobinas (1-3)</label><select id="qty"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+    <div class="form-group"><label>Peso Total (kg)</label><input type="number" id="peso" placeholder="Ex: 500"></div>
+    <div class="form-group"><label>Profundidade Palete (m)</label><input type="number" id="profundidade" value="0.80" step="0.05" min="0.75" max="0.80"></div>
+    <div class="modal-buttons"><button onclick="salvarPalete()">Salvar</button><button onclick="fecharModal()" style="background: #999;">Cancelar</button><button class="btn-danger" id="btn-deletar" onclick="deletarPalete()" style="display:none;">Deletar</button></div>
   </div>
 </div>
-
 <script>
 const ALTURA_BOBINA = 0.80;
 const esquerda = ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E10'];
 const direita = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11', 'D12', 'D13', 'D14', 'D15', 'D16', 'D17'];
-const tamanhos = {
-  'E9': 6.10, 'E10': 6.10,
-  'D16': 6.10, 'D17': 6.10
-};
-
+const tamanhos = {'E9': 6.10, 'E10': 6.10, 'D16': 6.10, 'D17': 6.10};
 let paletes = {};
 let corredorAtual = null;
 let paleteSelecionado = null;
-
 function inicializar() {
   esquerda.forEach(c => paletes[c] = []);
   direita.forEach(c => paletes[c] = []);
   carregarDados();
   renderizar();
 }
-
 function renderizar() {
   renderizarLado('esquerda-corredores', esquerda);
   renderizarLado('direita-corredores', direita);
 }
-
 function renderizarLado(elementId, corredores) {
   const html = corredores.map(corredor => {
     const tamanho = tamanhos[corredor] || 7.5;
@@ -161,25 +114,28 @@ function renderizarLado(elementId, corredores) {
       return sum + comp;
     }, 0);
     const comprimentoLivre = tamanho - comprimentoOcupado;
-
     const isE9E10 = ['E9', 'E10'].includes(corredor);
     const isDireita16_17 = ['D16', 'D17'].includes(corredor);
-
     const paletesHtml = paletesArray.map((p, idx) => {
       const comp = (parseInt(p.largura) || 680) / 1000;
       const alt = ALTURA_BOBINA * parseInt(p.qty);
       const percentComp = (comp / tamanho) * 100;
       return `<div class="palete" style="width: ${percentComp}%; height: ${alt * 30}px;" onclick="editarPalete('${corredor}', ${idx})" title="${p.fornecedor} - ${p.largura}mm - ${p.qty}x - ${p.peso}kg"><div class="palete-info">${p.fornecedor.substring(0,3)}</div><div style="font-size:7px">${p.largura}mm</div></div>`;
     }).join('');
-
-    const classes = isE9E10 ? 'corredor-item corredor-610-esq' : isDireita16_17 ? 'corredor-item corredor-610-dir' : corredor === 'D1' ? 'corredor-solo' : 'corredor-item';
-
+    let classes = '';
+    if (corredor === 'D1') {
+      classes = 'corredor-solo';
+    } else if (isE9E10) {
+      classes = 'corredor-item corredor-610-esq';
+    } else if (isDireita16_17) {
+      classes = 'corredor-item corredor-610-dir';
+    } else {
+      classes = 'corredor-item';
+    }
     return `<div class="${classes}" onclick="abrirModal('${corredor}')"><div class="corredor-nome">${corredor}</div><div class="corredor-tamanho">${tamanho.toFixed(2)}m</div><div class="paletes-container">${paletesHtml}</div><div class="corredor-info">${pesoTotal}kg | ${comprimentoLivre.toFixed(2)}m livre</div></div>`;
   }).join('');
-
   document.getElementById(elementId).innerHTML = html;
 }
-
 function abrirModal(corredor) {
   corredorAtual = corredor;
   paleteSelecionado = null;
@@ -192,7 +148,6 @@ function abrirModal(corredor) {
   document.getElementById('btn-deletar').style.display = 'none';
   document.getElementById('modal').classList.add('active');
 }
-
 function editarPalete(corredor, idx) {
   corredorAtual = corredor;
   paleteSelecionado = idx;
@@ -206,32 +161,26 @@ function editarPalete(corredor, idx) {
   document.getElementById('btn-deletar').style.display = 'block';
   document.getElementById('modal').classList.add('active');
 }
-
 function salvarPalete() {
   const fornecedor = document.getElementById('fornecedor').value.trim();
   const largura = document.getElementById('largura').value;
   const qty = document.getElementById('qty').value;
   const peso = document.getElementById('peso').value;
   const profundidade = document.getElementById('profundidade').value;
-
   if (!fornecedor || !largura || !peso) {
     alert('Preencha todos os campos!');
     return;
   }
-
   const palete = { fornecedor, largura, qty, peso: parseInt(peso), profundidade: parseFloat(profundidade) };
-
   if (paleteSelecionado !== null) {
     paletes[corredorAtual][paleteSelecionado] = palete;
   } else {
     paletes[corredorAtual].push(palete);
   }
-
   salvarDados();
   renderizar();
   fecharModal();
 }
-
 function deletarPalete() {
   if (paleteSelecionado !== null) {
     paletes[corredorAtual].splice(paleteSelecionado, 1);
@@ -240,22 +189,18 @@ function deletarPalete() {
     fecharModal();
   }
 }
-
 function fecharModal() {
   document.getElementById('modal').classList.remove('active');
 }
-
 function salvarDados() {
   localStorage.setItem('paletes_bopp', JSON.stringify(paletes));
 }
-
 function carregarDados() {
   const dados = localStorage.getItem('paletes_bopp');
   if (dados) {
     paletes = JSON.parse(dados);
   }
 }
-
 function limparTudo() {
   if (confirm('Limpar TODOS os paletes?')) {
     Object.keys(paletes).forEach(k => paletes[k] = []);
@@ -263,7 +208,6 @@ function limparTudo() {
     renderizar();
   }
 }
-
 function exportarDados() {
   const json = JSON.stringify(paletes, null, 2);
   const blob = new Blob([json], { type: 'application/json' });
@@ -273,7 +217,6 @@ function exportarDados() {
   a.download = `paletes-bopp-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
 }
-
 function importarDados() {
   const input = document.createElement('input');
   input.type = 'file';
@@ -293,14 +236,3 @@ function importarDados() {
     };
     reader.readAsText(file);
   };
-  input.click();
-}
-
-document.getElementById('modal').addEventListener('click', (e) => {
-  if (e.target.id === 'modal') fecharModal();
-});
-
-inicializar();
-</script>
-</body>
-</html>
