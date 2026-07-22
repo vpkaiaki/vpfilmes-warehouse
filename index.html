@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Paletes - VP Filmes</title>
+<title>Sistema BOPP + PEAD - VP Filmes</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: system-ui; background: #f5f5f5; padding: 20px; }
@@ -12,51 +12,61 @@ h1 { color: #0B2027; margin-bottom: 5px; }
 .sub { color: #999; font-size: 12px; margin-bottom: 20px; }
 .btns { margin-bottom: 20px; }
 button { padding: 8px 15px; background: #0B2027; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 8px; }
+.section-title { font-weight: bold; font-size: 14px; color: #0B2027; margin: 25px 0 15px 0; border-bottom: 2px solid #4FB8C0; padding-bottom: 8px; }
+.pead-grid { display: grid; grid-template-columns: repeat(14, 1fr); gap: 8px; margin-bottom: 30px; }
+.pead-posicao { aspect-ratio: 1; background: #f0f0f0; border: 1px solid #999; border-radius: 4px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; padding: 4px; }
+.pead-posicao:hover { background: #e0e0e0; }
+.pead-titulo { font-weight: bold; margin-bottom: 2px; }
+.pead-info { font-size: 9px; line-height: 1.2; }
+.pead-bopp { background: linear-gradient(135deg, #FFE8D6, #FFD9C0); }
+.pead-pead { background: linear-gradient(135deg, #D6E8FF, #C0D9FF); }
+.pead-misto { background: linear-gradient(135deg, #FFE8D6, #D6E8FF); }
 .warehouse { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 40px; }
 .lado { border: 2px solid #0B2027; padding: 15px; border-radius: 6px; }
 .lado-title { font-weight: bold; margin-bottom: 15px; text-align: center; font-size: 13px; }
 .corredor-group { margin-bottom: 25px; }
-.corredor-solo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; cursor: pointer; position: relative; min-height: 80px; }
-.corredor-solo:hover { background: #d0f0f5; }
+.corredor-solo, .corredor-item { background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; cursor: pointer; position: relative; padding: 0 10px; min-height: 80px; display: flex; align-items: center; justify-content: space-between; }
+.corredor-solo:hover, .corredor-item:hover { background: #d0f0f5; }
 .corredor-duplo { display: flex; flex-direction: column; gap: 8px; }
-.corredor-item { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; cursor: pointer; position: relative; min-height: 80px; }
-.corredor-item:hover { background: #d0f0f5; }
 .corredor-610-esq { width: 81.33%; margin-left: 18.67%; }
 .corredor-610-dir { width: 81.33%; margin-right: 18.67%; }
-.corredor-left { flex: 1; }
-.corredor-right { font-size: 9px; color: #666; }
 .paletes { position: absolute; top: 5px; left: 5px; right: 5px; height: 40px; display: flex; align-items: flex-end; gap: 2px; overflow-x: auto; }
-.palete { background: #FF6B35; color: white; border: 1px solid #D94A1F; border-radius: 2px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; padding: 2px; cursor: pointer; text-align: center; }
-.palete:hover { background: #E55A25; }
+.palete { background: #FF6B35; color: white; border: 1px solid #D94A1F; border-radius: 2px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; padding: 2px; cursor: pointer; }
 .centro { text-align: center; }
-.centro-strong { font-weight: bold; font-size: 16px; color: #0B2027; }
-.specs { background: #f0f8fb; padding: 10px; border-radius: 4px; border-left: 3px solid #4FB8C0; margin-top: 10px; font-size: 11px; line-height: 1.6; }
+.specs { background: #f0f8fb; padding: 10px; border-radius: 4px; border-left: 3px solid #4FB8C0; margin-top: 10px; font-size: 11px; }
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 999; }
 .modal.show { display: flex; }
-.modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 420px; }
+.modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 420px; max-height: 90vh; overflow-y: auto; }
 .form-group { margin-bottom: 12px; }
 .form-group label { display: block; font-weight: 500; margin-bottom: 4px; font-size: 12px; }
 .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; }
 .modal-btns { display: flex; gap: 8px; margin-top: 15px; }
 .modal-btns button { flex: 1; }
+.palete-item { background: #f5f5f5; padding: 10px; margin-bottom: 8px; border-radius: 4px; border-left: 3px solid #FF6B35; }
+.palete-item.pead { border-left-color: #1E90FF; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>Sistema de Paletes - VP Filmes Galpão 09</h1>
-  <div class="sub">BOPP - Gerenciamento de Paletes nos Corredores</div>
+  <h1>Sistema BOPP + PEAD - VP Filmes Galpão 09</h1>
+  <div class="sub">Gerenciamento de Paletes - Corredores BOPP + Armazenagem PEAD</div>
   <div class="btns">
-    <button onclick="limpar()">Limpar Tudo</button>
-    <button onclick="exportar()">Exportar</button>
-    <button onclick="importar()">Importar</button>
+    <button onclick="limpar_tudo()">Limpar Tudo</button>
+    <button onclick="exportar_tudo()">Exportar</button>
+    <button onclick="importar_tudo()">Importar</button>
   </div>
+
+  <div class="section-title">PEAD - Armazenagem (4 linhas × 14 posições)</div>
+  <div class="pead-grid" id="pead-grid"></div>
+
+  <div class="section-title">BOPP - Corredores</div>
   <div class="warehouse">
     <div class="lado" id="esq"></div>
     <div class="centro">
-      <div class="centro-strong">VP FILMES</div>
+      <div style="font-weight: bold; font-size: 16px; color: #0B2027;">VP FILMES</div>
       <div style="font-size:12px; color:#999; margin-top:5px;">Galp 09</div>
       <div style="font-size:12px; color:#999;">Blumenau, SC</div>
-      <div class="specs"><strong>BOPP - Paletes</strong><br>Bobinas deitadas<br>Alt: 0,80m</div>
+      <div class="specs"><strong>BOPP</strong><br>Bobinas deitadas<br>Alt: 0,80m</div>
     </div>
     <div class="lado" id="dir"></div>
   </div>
@@ -65,133 +75,222 @@ button { padding: 8px 15px; background: #0B2027; color: white; border: none; bor
 <div class="modal" id="modal">
   <div class="modal-box">
     <h3 id="ttl" style="margin-bottom:15px;">Adicionar</h3>
-    <div class="form-group"><label>Fornecedor</label><input type="text" id="forn"></div>
-    <div class="form-group"><label>Largura (mm)</label><select id="larg"><option value="">Selecione</option><option value="680">680mm</option><option value="912">912mm</option><option value="942">942mm</option><option value="972">972mm</option></select></div>
-    <div class="form-group"><label>Qtd Bobinas</label><select id="qtd"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
-    <div class="form-group"><label>Peso (kg)</label><input type="number" id="pes"></div>
-    <div class="modal-btns"><button onclick="salvar()">Salvar</button><button onclick="fecha()" style="background:#999;">Cancelar</button><button id="del" onclick="deletar()" style="background:#d94a1f; display:none;">Deletar</button></div>
+    
+    <div id="pead-form" style="display:none;">
+      <div class="form-group">
+        <label>Tipo Palete</label>
+        <select id="tipo_pal">
+          <option value="BOPP">BOPP (laranja)</option>
+          <option value="PEAD">PEAD (azul)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Bobinas por Palete (até 24)</label>
+        <input type="number" id="qtd_bob" min="1" max="24" value="1">
+      </div>
+      <div class="form-group">
+        <label>Peso Total Palete (kg)</label>
+        <input type="number" id="peso_pal" step="0.1">
+      </div>
+      <button style="width:100%; margin-bottom:10px; background:#1E90FF;" onclick="add_palete_pead()">+ Adicionar Palete</button>
+      <div id="pead-paletes-list" style="max-height:150px; overflow-y:auto; margin-bottom:10px;"></div>
+    </div>
+
+    <div id="bopp-form" style="display:none;">
+      <div class="form-group">
+        <label>Fornecedor</label>
+        <input type="text" id="forn_bopp">
+      </div>
+      <div class="form-group">
+        <label>Largura (mm)</label>
+        <select id="larg_bopp">
+          <option value="">Selecione</option>
+          <option value="680">680mm</option>
+          <option value="912">912mm</option>
+          <option value="942">942mm</option>
+          <option value="972">972mm</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Qtd Bobinas</label>
+        <select id="qtd_bob_bopp">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Peso (kg)</label>
+        <input type="number" id="peso_bopp">
+      </div>
+    </div>
+
+    <div class="modal-btns">
+      <button id="btn-save" onclick="salvar()">Salvar</button>
+      <button onclick="fecha()" style="background:#999;">Cancelar</button>
+      <button id="del" onclick="deletar()" style="background:#d94a1f; display:none;">Deletar</button>
+    </div>
   </div>
 </div>
 
 <script>
-const TAMANHOS = {E9:6.1, E10:6.1, D16:6.1, D17:6.1};
-let paletes = {};
-let corr_sel = null;
-let idx_sel = null;
+const LINHAS_PEAD = ['A','B','C','D'];
+const COLS_PEAD = 14;
+const TAMANHOS_BOPP = {E9:6.1, E10:6.1, D16:6.1, D17:6.1};
 
-const esq_duplos = [['E1','E2'],['E3','E4'],['E5','E6'],['E7','E8'],['E9','E10']];
-const dir_solo = 'D1';
-const dir_duplos = [['D2','D3'],['D4','D5'],['D6','D7'],['D8','D9'],['D10','D11'],['D12','D13'],['D14','D15'],['D16','D17']];
+let pead_data = {};
+let bopp_data = {};
+let modal_tipo = null;
+let modal_pos = null;
+let modal_idx = null;
+let pead_temp_paletes = [];
 
-function init() {
-  esq_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
-  dir_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
-  paletes[dir_solo] = [];
-  let s = localStorage.getItem('pals_bopp');
-  if (s) paletes = JSON.parse(s);
-  render();
-}
-
-function render() {
-  document.getElementById('esq').innerHTML = '<div class="lado-title">ESQUERDA (10)</div>' + render_esq();
-  document.getElementById('dir').innerHTML = '<div class="lado-title">DIREITA (17)</div>' + render_dir();
-}
-
-function render_esq() {
-  let html = '';
-  esq_duplos.forEach(duplo => {
-    html += render_duplo(duplo);
+function init_pead() {
+  LINHAS_PEAD.forEach(linha => {
+    for (let col = 1; col <= COLS_PEAD; col++) {
+      pead_data[linha + col] = [];
+    }
   });
-  return html;
+  let saved = localStorage.getItem('pead_data');
+  if (saved) pead_data = JSON.parse(saved);
 }
 
-function render_dir() {
-  let html = render_solo(dir_solo);
-  dir_duplos.forEach(duplo => {
-    html += render_duplo(duplo);
-  });
-  return html;
-}
-
-function render_solo(c) {
-  let t = TAMANHOS[c] || 7.5;
-  let pals = paletes[c] || [];
-  return '<div class="corredor-group"><div class="corredor-solo" onclick="abrir(\'' + c + '\')">' + render_conteudo(c, t, pals) + '</div></div>';
-}
-
-function render_duplo(duplo) {
-  let html = '<div class="corredor-group"><div class="corredor-duplo">';
-  duplo.forEach(c => {
-    let t = TAMANHOS[c] || 7.5;
-    let pals = paletes[c] || [];
-    let classe = 'corredor-item';
-    if (duplo[0].startsWith('E') && ['E9','E10'].includes(c)) classe += ' corredor-610-esq';
-    if (duplo[0].startsWith('D') && ['D16','D17'].includes(c)) classe += ' corredor-610-dir';
-    html += '<div class="' + classe + '" onclick="abrir(\'' + c + '\')">' + render_conteudo(c, t, pals) + '</div>';
-  });
-  html += '</div></div>';
-  return html;
-}
-
-function render_conteudo(c, t, pals) {
-  let peso = 0;
-  let comp = 0;
-  let pal_html = '';
+function init_bopp() {
+  const esq_duplos = [['E1','E2'],['E3','E4'],['E5','E6'],['E7','E8'],['E9','E10']];
+  const dir_duplos = [['D2','D3'],['D4','D5'],['D6','D7'],['D8','D9'],['D10','D11'],['D12','D13'],['D14','D15'],['D16','D17']];
   
-  pals.forEach((p, idx) => {
-    peso += parseInt(p.peso || 0);
-    let larg_m = parseInt(p.larg || 0) / 1000;
-    comp += larg_m;
-    let w = (larg_m / t) * 100;
-    let h = 0.8 * parseInt(p.qtd) * 15;
-    pal_html += '<div class="palete" style="width:' + w + '%; height:' + h + 'px;" onclick="editar(\'' + c + '\',' + idx + ')" title="' + p.forn + ' ' + p.larg + 'mm">' + p.forn.substring(0,2) + '<br>' + p.larg + '</div>';
-  });
+  esq_duplos.forEach(d => {d.forEach(c => bopp_data[c] = []);});
+  dir_duplos.forEach(d => {d.forEach(c => bopp_data[c] = []);});
+  bopp_data['D1'] = [];
   
-  let livre = (t - comp).toFixed(2);
-  return '<div class="paletes">' + pal_html + '</div><div class="corredor-left" style="padding-top:50px;"><strong>' + c + '</strong> ' + t.toFixed(2) + 'm</div><div class="corredor-right">' + peso + 'kg<br>' + livre + 'm</div>';
+  let saved = localStorage.getItem('bopp_data');
+  if (saved) bopp_data = JSON.parse(saved);
 }
 
-function abrir(c) {
-  corr_sel = c; idx_sel = null;
-  document.getElementById('ttl').textContent = 'Adicionar - ' + c;
-  document.getElementById('forn').value = '';
-  document.getElementById('larg').value = '';
-  document.getElementById('qtd').value = '1';
-  document.getElementById('pes').value = '';
+function render_pead() {
+  let grid_html = '';
+  LINHAS_PEAD.forEach(linha => {
+    for (let col = 1; col <= COLS_PEAD; col++) {
+      let pos = linha + col;
+      let paletes = pead_data[pos] || [];
+      let bopp_cnt = paletes.filter(p => p.tipo === 'BOPP').length;
+      let pead_cnt = paletes.filter(p => p.tipo === 'PEAD').length;
+      let tot_bob = paletes.reduce((s, p) => s + parseInt(p.qtd_bob || 0), 0);
+      let tot_kg = paletes.reduce((s, p) => s + parseInt(p.peso || 0), 0);
+      
+      let cls = 'pead-posicao';
+      if (bopp_cnt > 0 && pead_cnt > 0) cls += ' pead-misto';
+      else if (bopp_cnt > 0) cls += ' pead-bopp';
+      else if (pead_cnt > 0) cls += ' pead-pead';
+      
+      grid_html += '<div class="' + cls + '" onclick="abrir_pead(\'' + pos + '\')">' +
+        '<div class="pead-titulo">' + pos + '</div>' +
+        '<div class="pead-info">' + (bopp_cnt > 0 ? bopp_cnt + 'B ' : '') + (pead_cnt > 0 ? pead_cnt + 'P' : '') + '</div>' +
+        '<div class="pead-info">' + tot_bob + 'b ' + tot_kg + 'kg</div>' +
+        '</div>';
+    }
+  });
+  document.getElementById('pead-grid').innerHTML = grid_html;
+}
+
+function abrir_pead(pos) {
+  modal_tipo = 'PEAD';
+  modal_pos = pos;
+  modal_idx = null;
+  pead_temp_paletes = JSON.parse(JSON.stringify(pead_data[pos] || []));
+  
+  document.getElementById('ttl').textContent = 'Editar Paletes - ' + pos;
+  document.getElementById('pead-form').style.display = 'block';
+  document.getElementById('bopp-form').style.display = 'none';
   document.getElementById('del').style.display = 'none';
+  
+  document.getElementById('tipo_pal').value = 'BOPP';
+  document.getElementById('qtd_bob').value = '1';
+  document.getElementById('peso_pal').value = '';
+  
+  render_pead_paletes_list();
   document.getElementById('modal').classList.add('show');
 }
 
-function editar(c, i) {
-  corr_sel = c; idx_sel = i;
-  let p = paletes[c][i];
-  document.getElementById('ttl').textContent = 'Editar - ' + c;
-  document.getElementById('forn').value = p.forn;
-  document.getElementById('larg').value = p.larg;
-  document.getElementById('qtd').value = p.qtd;
-  document.getElementById('pes').value = p.peso;
-  document.getElementById('del').style.display = 'block';
+function render_pead_paletes_list() {
+  let html = '';
+  pead_temp_paletes.forEach((p, i) => {
+    let cls = 'palete-item';
+    if (p.tipo === 'PEAD') cls += ' pead';
+    html += '<div class="' + cls + '">' +
+      '<strong>' + p.tipo + '</strong> | ' + p.qtd_bob + ' bobinas | ' + p.peso + 'kg ' +
+      '<button onclick="remover_palete_temp(' + i + ')" style="float:right; padding:2px 6px; font-size:10px; background:#d94a1f;">-</button>' +
+      '</div>';
+  });
+  document.getElementById('pead-paletes-list').innerHTML = html;
+}
+
+function add_palete_pead() {
+  let tipo = document.getElementById('tipo_pal').value;
+  let qtd = document.getElementById('qtd_bob').value;
+  let peso = document.getElementById('peso_pal').value;
+  
+  if (!qtd || !peso) { alert('Preencha!'); return; }
+  if (parseInt(qtd) > 24) { alert('Máximo 24 bobinas!'); return; }
+  
+  pead_temp_paletes.push({tipo: tipo, qtd_bob: qtd, peso: peso});
+  render_pead_paletes_list();
+  
+  document.getElementById('tipo_pal').value = 'BOPP';
+  document.getElementById('qtd_bob').value = '1';
+  document.getElementById('peso_pal').value = '';
+}
+
+function remover_palete_temp(i) {
+  pead_temp_paletes.splice(i, 1);
+  render_pead_paletes_list();
+}
+
+function abrir_bopp(c) {
+  modal_tipo = 'BOPP';
+  modal_pos = c;
+  modal_idx = null;
+  
+  document.getElementById('ttl').textContent = 'Adicionar - ' + c;
+  document.getElementById('pead-form').style.display = 'none';
+  document.getElementById('bopp-form').style.display = 'block';
+  document.getElementById('del').style.display = 'none';
+  
+  document.getElementById('forn_bopp').value = '';
+  document.getElementById('larg_bopp').value = '';
+  document.getElementById('qtd_bob_bopp').value = '1';
+  document.getElementById('peso_bopp').value = '';
+  
   document.getElementById('modal').classList.add('show');
 }
 
 function salvar() {
-  let f = document.getElementById('forn').value.trim();
-  let l = document.getElementById('larg').value;
-  let q = document.getElementById('qtd').value;
-  let w = document.getElementById('pes').value;
-  if (!f || !l || !w) { alert('Preencha!'); return; }
-  let p = {forn: f, larg: l, qtd: q, peso: w};
-  if (idx_sel !== null) { paletes[corr_sel][idx_sel] = p; } else { paletes[corr_sel].push(p); }
-  localStorage.setItem('pals_bopp', JSON.stringify(paletes));
-  render();
+  if (modal_tipo === 'PEAD') {
+    pead_data[modal_pos] = pead_temp_paletes;
+    localStorage.setItem('pead_data', JSON.stringify(pead_data));
+    render_pead();
+  } else if (modal_tipo === 'BOPP') {
+    let f = document.getElementById('forn_bopp').value.trim();
+    let l = document.getElementById('larg_bopp').value;
+    let q = document.getElementById('qtd_bob_bopp').value;
+    let w = document.getElementById('peso_bopp').value;
+    
+    if (!f || !l || !w) { alert('Preencha!'); return; }
+    
+    let p = {forn: f, larg: l, qtd: q, peso: w};
+    bopp_data[modal_pos].push(p);
+    localStorage.setItem('bopp_data', JSON.stringify(bopp_data));
+    render_bopp();
+  }
+  
   fecha();
 }
 
 function deletar() {
-  if (idx_sel !== null) {
-    paletes[corr_sel].splice(idx_sel, 1);
-    localStorage.setItem('pals_bopp', JSON.stringify(paletes));
-    render();
+  if (modal_tipo === 'BOPP' && modal_idx !== null) {
+    bopp_data[modal_pos].splice(modal_idx, 1);
+    localStorage.setItem('bopp_data', JSON.stringify(bopp_data));
+    render_bopp();
     fecha();
   }
 }
@@ -200,24 +299,86 @@ function fecha() {
   document.getElementById('modal').classList.remove('show');
 }
 
-function limpar() {
-  if (confirm('Limpar tudo?')) {
-    esq_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
-    dir_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
-    paletes[dir_solo] = [];
-    localStorage.setItem('pals_bopp', JSON.stringify(paletes));
-    render();
+function render_bopp() {
+  const esq_duplos = [['E1','E2'],['E3','E4'],['E5','E6'],['E7','E8'],['E9','E10']];
+  const dir_duplos = [['D2','D3'],['D4','D5'],['D6','D7'],['D8','D9'],['D10','D11'],['D12','D13'],['D14','D15'],['D16','D17']];
+  
+  let esq_html = '<div class="lado-title">ESQUERDA (10)</div>';
+  esq_duplos.forEach(duplo => {
+    esq_html += '<div class="corredor-group"><div class="corredor-duplo">';
+    duplo.forEach(c => {
+      let t = TAMANHOS_BOPP[c] || 7.5;
+      let pals = bopp_data[c] || [];
+      let classe = 'corredor-item';
+      if (['E9','E10'].includes(c)) classe += ' corredor-610-esq';
+      esq_html += '<div class="' + classe + '" onclick="abrir_bopp(\'' + c + '\')">' + render_bopp_conteudo(c, t, pals) + '</div>';
+    });
+    esq_html += '</div></div>';
+  });
+  document.getElementById('esq').innerHTML = esq_html;
+  
+  let dir_html = '<div class="lado-title">DIREITA (17)</div>';
+  dir_html += '<div class="corredor-group"><div class="corredor-solo" onclick="abrir_bopp(\'D1\')">' + render_bopp_conteudo('D1', 7.5, bopp_data['D1'] || []) + '</div></div>';
+  dir_duplos.forEach(duplo => {
+    dir_html += '<div class="corredor-group"><div class="corredor-duplo">';
+    duplo.forEach(c => {
+      let t = TAMANHOS_BOPP[c] || 7.5;
+      let pals = bopp_data[c] || [];
+      let classe = 'corredor-item';
+      if (['D16','D17'].includes(c)) classe += ' corredor-610-dir';
+      dir_html += '<div class="' + classe + '" onclick="abrir_bopp(\'' + c + '\')">' + render_bopp_conteudo(c, t, pals) + '</div>';
+    });
+    dir_html += '</div></div>';
+  });
+  document.getElementById('dir').innerHTML = dir_html;
+}
+
+function render_bopp_conteudo(c, t, pals) {
+  let peso = 0;
+  let comp = 0;
+  let pal_html = '';
+  pals.forEach((p, idx) => {
+    peso += parseInt(p.peso || 0);
+    let larg_m = parseInt(p.larg || 0) / 1000;
+    comp += larg_m;
+    let w = (larg_m / t) * 100;
+    let h = 0.8 * parseInt(p.qtd) * 15;
+    pal_html += '<div class="palete" style="width:' + w + '%; height:' + h + 'px;" onclick="abrir_bopp(\'' + c + '\')">' + p.forn.substring(0,2) + '<br>' + p.larg + '</div>';
+  });
+  let livre = (t - comp).toFixed(2);
+  return '<div class="paletes">' + pal_html + '</div><div style="flex:1; padding-top:50px;"><strong>' + c + '</strong> ' + t.toFixed(2) + 'm</div><div style="font-size:9px; color:#666;">' + peso + 'kg<br>' + livre + 'm</div>';
+}
+
+function limpar_tudo() {
+  if (confirm('Limpar TUDO?')) {
+    pead_data = {};
+    bopp_data = {};
+    LINHAS_PEAD.forEach(linha => {
+      for (let col = 1; col <= COLS_PEAD; col++) {
+        pead_data[linha + col] = [];
+      }
+    });
+    const esq_duplos = [['E1','E2'],['E3','E4'],['E5','E6'],['E7','E8'],['E9','E10']];
+    const dir_duplos = [['D2','D3'],['D4','D5'],['D6','D7'],['D8','D9'],['D10','D11'],['D12','D13'],['D14','D15'],['D16','D17']];
+    esq_duplos.forEach(d => {d.forEach(c => bopp_data[c] = []);});
+    dir_duplos.forEach(d => {d.forEach(c => bopp_data[c] = []);});
+    bopp_data['D1'] = [];
+    localStorage.setItem('pead_data', JSON.stringify(pead_data));
+    localStorage.setItem('bopp_data', JSON.stringify(bopp_data));
+    render_pead();
+    render_bopp();
   }
 }
 
-function exportar() {
+function exportar_tudo() {
+  let dados = {pead: pead_data, bopp: bopp_data};
   let a = document.createElement('a');
-  a.href = 'data:application/json,' + encodeURIComponent(JSON.stringify(paletes, null, 2));
-  a.download = 'paletes.json';
+  a.href = 'data:application/json,' + encodeURIComponent(JSON.stringify(dados, null, 2));
+  a.download = 'warehouse.json';
   a.click();
 }
 
-function importar() {
+function importar_tudo() {
   let i = document.createElement('input');
   i.type = 'file';
   i.accept = '.json';
@@ -226,9 +387,13 @@ function importar() {
     let r = new FileReader();
     r.onload = function(ev) {
       try {
-        paletes = JSON.parse(ev.target.result);
-        localStorage.setItem('pals_bopp', JSON.stringify(paletes));
-        render();
+        let dados = JSON.parse(ev.target.result);
+        pead_data = dados.pead;
+        bopp_data = dados.bopp;
+        localStorage.setItem('pead_data', JSON.stringify(pead_data));
+        localStorage.setItem('bopp_data', JSON.stringify(bopp_data));
+        render_pead();
+        render_bopp();
       } catch(err) { alert('Erro!'); }
     };
     r.readAsText(f);
@@ -240,7 +405,10 @@ document.getElementById('modal').onclick = function(e) {
   if (e.target.id === 'modal') fecha();
 };
 
-init();
+init_pead();
+init_bopp();
+render_pead();
+render_bopp();
 </script>
 </body>
 </html>
