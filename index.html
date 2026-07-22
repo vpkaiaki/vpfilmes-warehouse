@@ -2,135 +2,157 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema de Paletes - VP Filmes</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: system-ui; background: #f5f5f5; padding: 20px; }
-.container { max-width: 1400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-h1 { color: #0B2027; margin-bottom: 10px; }
-.btns { margin: 15px 0; }
-button { padding: 10px 15px; background: #0B2027; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
-.warehouse { display: grid; grid-template-columns: 1fr 100px 1fr; gap: 20px; margin-top: 20px; }
+.container { max-width: 1400px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; }
+h1 { color: #0B2027; margin-bottom: 5px; }
+.sub { color: #999; font-size: 12px; margin-bottom: 20px; }
+.btns { margin-bottom: 20px; }
+button { padding: 8px 15px; background: #0B2027; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 8px; }
+.warehouse { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 40px; }
 .lado { border: 2px solid #0B2027; padding: 15px; border-radius: 6px; }
-.titulo { font-weight: bold; margin-bottom: 15px; text-align: center; }
-.corredor { background: #e8f7f9; border: 1px solid #4FB8C0; padding: 10px; margin-bottom: 20px; cursor: pointer; border-radius: 4px; }
-.corredor:hover { background: #d0f0f5; }
-.paletes { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 3px; }
-.palete { background: #FF6B35; color: white; padding: 3px 5px; border-radius: 2px; font-size: 9px; cursor: pointer; }
+.lado-title { font-weight: bold; margin-bottom: 15px; text-align: center; font-size: 13px; }
+.corredor-group { margin-bottom: 25px; }
+.corredor-solo { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; cursor: pointer; position: relative; min-height: 80px; }
+.corredor-solo:hover { background: #d0f0f5; }
+.corredor-duplo { display: flex; flex-direction: column; gap: 8px; }
+.corredor-item { height: 45px; background: linear-gradient(to right, #e8f7f9, #f0f0f0); border: 1px solid #4FB8C0; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; cursor: pointer; position: relative; min-height: 80px; }
+.corredor-item:hover { background: #d0f0f5; }
+.corredor-610-esq { width: 81.33%; margin-left: 18.67%; }
+.corredor-610-dir { width: 81.33%; margin-right: 18.67%; }
+.corredor-left { flex: 1; }
+.corredor-right { font-size: 9px; color: #666; }
+.paletes { position: absolute; top: 5px; left: 5px; right: 5px; height: 40px; display: flex; align-items: flex-end; gap: 2px; overflow-x: auto; }
+.palete { background: #FF6B35; color: white; border: 1px solid #D94A1F; border-radius: 2px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; padding: 2px; cursor: pointer; text-align: center; }
+.palete:hover { background: #E55A25; }
+.centro { text-align: center; }
+.centro-strong { font-weight: bold; font-size: 16px; color: #0B2027; }
+.specs { background: #f0f8fb; padding: 10px; border-radius: 4px; border-left: 3px solid #4FB8C0; margin-top: 10px; font-size: 11px; line-height: 1.6; }
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 999; }
 .modal.show { display: flex; }
-.modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; }
-input, select { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
+.modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 420px; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-weight: 500; margin-bottom: 4px; font-size: 12px; }
+.form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; }
+.modal-btns { display: flex; gap: 8px; margin-top: 15px; }
+.modal-btns button { flex: 1; }
 </style>
 </head>
 <body>
 <div class="container">
   <h1>Sistema de Paletes - VP Filmes Galpão 09</h1>
+  <div class="sub">BOPP - Gerenciamento de Paletes nos Corredores</div>
   <div class="btns">
-    <button onclick="limpar()">Limpar</button>
+    <button onclick="limpar()">Limpar Tudo</button>
     <button onclick="exportar()">Exportar</button>
     <button onclick="importar()">Importar</button>
   </div>
   <div class="warehouse">
     <div class="lado" id="esq"></div>
-    <div style="text-align: center; padding: 20px;">
-      <div style="font-weight: bold; font-size: 18px; color: #0B2027;">VP FILMES</div>
-      <div style="font-size: 12px; color: #999;">Galp 09</div>
-      <div style="font-size: 12px; color: #999; margin-top: 10px;">Blumenau, SC</div>
+    <div class="centro">
+      <div class="centro-strong">VP FILMES</div>
+      <div style="font-size:12px; color:#999; margin-top:5px;">Galp 09</div>
+      <div style="font-size:12px; color:#999;">Blumenau, SC</div>
+      <div class="specs"><strong>BOPP - Paletes</strong><br>Bobinas deitadas<br>Alt: 0,80m</div>
     </div>
     <div class="lado" id="dir"></div>
   </div>
 </div>
 
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <h3 id="ttl">Adicionar</h3>
-    <input type="text" id="forn" placeholder="Fornecedor">
-    <select id="larg">
-      <option>Largura</option>
-      <option value="680">680mm</option>
-      <option value="912">912mm</option>
-      <option value="942">942mm</option>
-      <option value="972">972mm</option>
-    </select>
-    <select id="qtd">
-      <option value="1">1 bobina</option>
-      <option value="2">2 bobinas</option>
-      <option value="3">3 bobinas</option>
-    </select>
-    <input type="number" id="pes" placeholder="Peso (kg)">
-    <div style="margin-top: 15px;">
-      <button onclick="salvar()" style="width: 48%; margin-right: 4%;">Salvar</button>
-      <button onclick="fecha()" style="width: 48%; background: #999;">Sair</button>
-    </div>
-    <button id="del" onclick="deletar()" style="width: 100%; display: none; background: #d94a1f; margin-top: 5px;">Deletar</button>
+  <div class="modal-box">
+    <h3 id="ttl" style="margin-bottom:15px;">Adicionar</h3>
+    <div class="form-group"><label>Fornecedor</label><input type="text" id="forn"></div>
+    <div class="form-group"><label>Largura (mm)</label><select id="larg"><option value="">Selecione</option><option value="680">680mm</option><option value="912">912mm</option><option value="942">942mm</option><option value="972">972mm</option></select></div>
+    <div class="form-group"><label>Qtd Bobinas</label><select id="qtd"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+    <div class="form-group"><label>Peso (kg)</label><input type="number" id="pes"></div>
+    <div class="modal-btns"><button onclick="salvar()">Salvar</button><button onclick="fecha()" style="background:#999;">Cancelar</button><button id="del" onclick="deletar()" style="background:#d94a1f; display:none;">Deletar</button></div>
   </div>
 </div>
 
 <script>
-const ESQ = ['E1','E2','E3','E4','E5','E6','E7','E8','E9','E10'];
-const DIR = ['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10','D11','D12','D13','D14','D15','D16','D17'];
 const TAMANHOS = {E9:6.1, E10:6.1, D16:6.1, D17:6.1};
-
 let paletes = {};
-let corr_selecionado = null;
-let idx_selecionado = null;
+let corr_sel = null;
+let idx_sel = null;
 
-function carregar() {
-  ESQ.forEach(c => paletes[c] = []);
-  DIR.forEach(c => paletes[c] = []);
-  let saved = localStorage.getItem('paletes_vp');
-  if (saved) {
-    try {
-      paletes = JSON.parse(saved);
-    } catch(e) {
-      console.log('Erro ao carregar:', e);
-    }
-  }
+const esq_duplos = [['E1','E2'],['E3','E4'],['E5','E6'],['E7','E8'],['E9','E10']];
+const dir_solo = 'D1';
+const dir_duplos = [['D2','D3'],['D4','D5'],['D6','D7'],['D8','D9'],['D10','D11'],['D12','D13'],['D14','D15'],['D16','D17']];
+
+function init() {
+  esq_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
+  dir_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
+  paletes[dir_solo] = [];
+  let s = localStorage.getItem('pals_bopp');
+  if (s) paletes = JSON.parse(s);
+  render();
 }
 
 function render() {
-  let esq_html = '<div class="titulo">ESQUERDA (10)</div>';
-  ESQ.forEach(c => {
-    esq_html += renderCorredor(c);
-  });
-  document.getElementById('esq').innerHTML = esq_html;
-  
-  let dir_html = '<div class="titulo">DIREITA (17)</div>';
-  DIR.forEach(c => {
-    dir_html += renderCorredor(c);
-  });
-  document.getElementById('dir').innerHTML = dir_html;
+  document.getElementById('esq').innerHTML = '<div class="lado-title">ESQUERDA (10)</div>' + render_esq();
+  document.getElementById('dir').innerHTML = '<div class="lado-title">DIREITA (17)</div>' + render_dir();
 }
 
-function renderCorredor(c) {
+function render_esq() {
+  let html = '';
+  esq_duplos.forEach(duplo => {
+    html += render_duplo(duplo);
+  });
+  return html;
+}
+
+function render_dir() {
+  let html = render_solo(dir_solo);
+  dir_duplos.forEach(duplo => {
+    html += render_duplo(duplo);
+  });
+  return html;
+}
+
+function render_solo(c) {
   let t = TAMANHOS[c] || 7.5;
-  let pals = paletes[c];
-  let peso_tot = 0;
+  let pals = paletes[c] || [];
+  return '<div class="corredor-group"><div class="corredor-solo" onclick="abrir(\'' + c + '\')">' + render_conteudo(c, t, pals) + '</div></div>';
+}
+
+function render_duplo(duplo) {
+  let html = '<div class="corredor-group"><div class="corredor-duplo">';
+  duplo.forEach(c => {
+    let t = TAMANHOS[c] || 7.5;
+    let pals = paletes[c] || [];
+    let classe = 'corredor-item';
+    if (duplo[0].startsWith('E') && ['E9','E10'].includes(c)) classe += ' corredor-610-esq';
+    if (duplo[0].startsWith('D') && ['D16','D17'].includes(c)) classe += ' corredor-610-dir';
+    html += '<div class="' + classe + '" onclick="abrir(\'' + c + '\')">' + render_conteudo(c, t, pals) + '</div>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function render_conteudo(c, t, pals) {
+  let peso = 0;
   let comp = 0;
+  let pal_html = '';
   
-  pals.forEach(p => {
-    peso_tot += parseInt(p.peso || 0);
-    comp += parseInt(p.larg || 0) / 1000;
+  pals.forEach((p, idx) => {
+    peso += parseInt(p.peso || 0);
+    let larg_m = parseInt(p.larg || 0) / 1000;
+    comp += larg_m;
+    let w = (larg_m / t) * 100;
+    let h = 0.8 * parseInt(p.qtd) * 15;
+    pal_html += '<div class="palete" style="width:' + w + '%; height:' + h + 'px;" onclick="editar(\'' + c + '\',' + idx + ')" title="' + p.forn + ' ' + p.larg + 'mm">' + p.forn.substring(0,2) + '<br>' + p.larg + '</div>';
   });
   
   let livre = (t - comp).toFixed(2);
-  let pals_html = '';
-  
-  pals.forEach((p, i) => {
-    pals_html += '<div class="palete" onclick="editar(\'' + c + '\',' + i + ')">' + p.forn.substring(0,2) + ' ' + p.larg + 'mm</div>';
-  });
-  
-  return '<div class="corredor" onclick="abrir(\'' + c + '\')">' +
-    '<div><strong>' + c + '</strong> ' + t.toFixed(2) + 'm</div>' +
-    '<div class="paletes">' + pals_html + '</div>' +
-    '<div style="font-size:9px; margin-top:5px;">' + peso_tot + 'kg | ' + livre + 'm livre</div>' +
-    '</div>';
+  return '<div class="paletes">' + pal_html + '</div><div class="corredor-left" style="padding-top:50px;"><strong>' + c + '</strong> ' + t.toFixed(2) + 'm</div><div class="corredor-right">' + peso + 'kg<br>' + livre + 'm</div>';
 }
 
 function abrir(c) {
-  corr_selecionado = c;
-  idx_selecionado = null;
+  corr_sel = c; idx_sel = null;
   document.getElementById('ttl').textContent = 'Adicionar - ' + c;
   document.getElementById('forn').value = '';
   document.getElementById('larg').value = '';
@@ -141,8 +163,7 @@ function abrir(c) {
 }
 
 function editar(c, i) {
-  corr_selecionado = c;
-  idx_selecionado = i;
+  corr_sel = c; idx_sel = i;
   let p = paletes[c][i];
   document.getElementById('ttl').textContent = 'Editar - ' + c;
   document.getElementById('forn').value = p.forn;
@@ -158,25 +179,18 @@ function salvar() {
   let l = document.getElementById('larg').value;
   let q = document.getElementById('qtd').value;
   let w = document.getElementById('pes').value;
-  if (!f || l === 'Largura' || !w) {
-    alert('Preencha tudo!');
-    return;
-  }
-  let p = { forn: f, larg: l, qtd: q, peso: w };
-  if (idx_selecionado !== null) {
-    paletes[corr_selecionado][idx_selecionado] = p;
-  } else {
-    paletes[corr_selecionado].push(p);
-  }
-  localStorage.setItem('paletes_vp', JSON.stringify(paletes));
+  if (!f || !l || !w) { alert('Preencha!'); return; }
+  let p = {forn: f, larg: l, qtd: q, peso: w};
+  if (idx_sel !== null) { paletes[corr_sel][idx_sel] = p; } else { paletes[corr_sel].push(p); }
+  localStorage.setItem('pals_bopp', JSON.stringify(paletes));
   render();
   fecha();
 }
 
 function deletar() {
-  if (idx_selecionado !== null) {
-    paletes[corr_selecionado].splice(idx_selecionado, 1);
-    localStorage.setItem('paletes_vp', JSON.stringify(paletes));
+  if (idx_sel !== null) {
+    paletes[corr_sel].splice(idx_sel, 1);
+    localStorage.setItem('pals_bopp', JSON.stringify(paletes));
     render();
     fecha();
   }
@@ -188,9 +202,10 @@ function fecha() {
 
 function limpar() {
   if (confirm('Limpar tudo?')) {
-    ESQ.forEach(c => paletes[c] = []);
-    DIR.forEach(c => paletes[c] = []);
-    localStorage.setItem('paletes_vp', JSON.stringify(paletes));
+    esq_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
+    dir_duplos.forEach(d => {d.forEach(c => paletes[c] = []);});
+    paletes[dir_solo] = [];
+    localStorage.setItem('pals_bopp', JSON.stringify(paletes));
     render();
   }
 }
@@ -212,11 +227,9 @@ function importar() {
     r.onload = function(ev) {
       try {
         paletes = JSON.parse(ev.target.result);
-        localStorage.setItem('paletes_vp', JSON.stringify(paletes));
+        localStorage.setItem('pals_bopp', JSON.stringify(paletes));
         render();
-      } catch(err) {
-        alert('Erro!');
-      }
+      } catch(err) { alert('Erro!'); }
     };
     r.readAsText(f);
   };
@@ -227,8 +240,7 @@ document.getElementById('modal').onclick = function(e) {
   if (e.target.id === 'modal') fecha();
 };
 
-carregar();
-render();
+init();
 </script>
 </body>
 </html>
